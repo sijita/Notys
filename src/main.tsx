@@ -10,7 +10,7 @@ import { axiosClient } from "./services/apiClient";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <SWRConfig
     value={{
-      fetcher: (...args: []) => {
+      fetcher: (...args: string[]) => {
         return axiosClient.get(...args).then((res) => res.data);
       },
       suspense: true,
