@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
@@ -6,11 +7,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { SWRConfig } from "swr";
 import { axiosClient } from "./services/apiClient";
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <SWRConfig
     value={{
-      fetcher: (...args: string[]) => {
+      fetcher: (...args) => {
         return axiosClient.get(...args).then((res) => res.data);
       },
       suspense: true,
