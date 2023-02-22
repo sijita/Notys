@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { SWRConfig } from "swr";
 import { axiosClient } from "./services/apiClient";
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <SWRConfig
     value={{
@@ -14,6 +15,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         return axiosClient.get(...args).then((res) => res.data);
       },
       suspense: true,
+      onError: (error) => {
+        if (error.response.status === 401) {
+          window.localStorage.removeItem("user");
+        }
+      },
     }}
   >
     <Suspense

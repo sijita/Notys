@@ -11,7 +11,7 @@ export default function NotesBody() {
   const { data: notes, error } = useSWR<any[]>(
     userId ? `rest/v1/Notes?user_id=eq.${userId}${order}` : null
   );
-
+  
   const search = useRecoilValue(searchState);
 
   const notesResults = !search

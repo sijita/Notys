@@ -5,7 +5,6 @@ import { modalState } from "../../atoms/modalState";
 import { searchState } from "../../atoms/searchState";
 import { notesFilterState } from "../../atoms/notesFilterState";
 import Input from "../Input";
-import Swap from "./Swap";
 
 export default function Nav() {
   const [modal, setModal] = useRecoilState(modalState);
@@ -20,8 +19,24 @@ export default function Nav() {
     setSearch(e.target.value);
   };
 
+  const handleSortName = () => {
+    if (notesFilter === "&order=title.desc") {
+      setNotesFilter("&order=title.asc");
+    } else {
+      setNotesFilter("&order=title.desc");
+    }
+  };
+
+  const handleSortDate = () => {
+    if (notesFilter === "&order=created_at.desc") {
+      setNotesFilter("&order=created_at.asc");
+    } else {
+      setNotesFilter("&order=created_at.desc");
+    }
+  };
+
   return (
-    <div className="navbar rounded-md bg-neutral-900/70 flex flex-wrap gap-5 p-4 px-10 max-[500px]:justify-center justify-between items-start md:items-center">
+    <div className="navbar rounded-md bg-neutral-900/70 flex flex-wrap gap-5 p-10 sm:px-10 sm:py-4 max-[500px]:justify-center justify-between items-start md:items-center">
       <div className="flex flex-col gap-5 md:flex-row md:gap-10 items-start max-[500px]:w-full">
         <Input
           name="searcher"
@@ -31,34 +46,28 @@ export default function Nav() {
           className="input-bordered rounded-md bg-black/30 sm:w-60"
         />
         <div className="flex flex-wrap gap-3 justify-center max-[500px]:w-full">
-          <Swap
-            swapOn={
-              <>
-                Nombre <BiSortAZ className="text-base" />
-              </>
-            }
-            swapOff={
-              <>
-                Nombre <BiSortZA className="text-base" />
-              </>
-            }
-            buttonOn={() => setNotesFilter("&order=title.asc")}
-            buttonOff={() => setNotesFilter("&order=title.desc")}
-          />
-          <Swap
-            swapOn={
-              <>
-                Fecha <BiSortUp className="text-base" />
-              </>
-            }
-            swapOff={
-              <>
-                Fecha <BiSortDown className="text-base" />
-              </>
-            }
-            buttonOn={() => setNotesFilter("&order=created_at.asc")}
-            buttonOff={() => setNotesFilter("&order=created_at.desc")}
-          />
+          <button
+            className="btn bg-transparent hover:bg-[#080808] w-full sm:w-auto flex items-center gap-5 normal-case"
+            onClick={handleSortName}
+          >
+            Nombre{" "}
+            {notesFilter === "&order=title.desc" ? (
+              <BiSortZA className="text-base" />
+            ) : (
+              <BiSortAZ className="text-base" />
+            )}
+          </button>
+          <button
+            className="btn bg-transparent hover:bg-[#080808] w-full sm:w-auto flex items-center gap-5 normal-case"
+            onClick={handleSortDate}
+          >
+            Fecha{" "}
+            {notesFilter === "&order=created_at.desc" ? (
+              <BiSortUp className="text-base" />
+            ) : (
+              <BiSortDown className="text-base" />
+            )}
+          </button>
         </div>
       </div>
       <button
