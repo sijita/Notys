@@ -81,6 +81,7 @@ export default function NotesCard({
         "
         >
           <h2 className="card-title">{title}</h2>
+          <hr className="opacity-5" />
           <p>{content}</p>
         </div>
         <div className="card-actions">

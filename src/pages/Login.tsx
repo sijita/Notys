@@ -15,12 +15,11 @@ export default function Login({ user }: any) {
         >
           <div className="flex items-center h-full px-20 bg-[#080808] bg-opacity-40">
             <div>
-              <h2 className="text-4xl font-bold text-white">Notys</h2>
+              <h2 className="text-4xl font-bold text-white">¡Bienvenido/a a Notys!</h2>
 
-              <p className="max-w-xl mt-3 text-gray-300">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. In
-                autem ipsa, nulla laboriosam dolores, repellendus perferendis
-                libero suscipit nam temporibus molestiae
+              <p className="max-w-xl mt-3 text-gray-300 text-xl">
+                Página web especializada en la creación de notas, con la que podrás crear notas de forma
+                rápida y sencilla.
               </p>
             </div>
           </div>

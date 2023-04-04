@@ -47,7 +47,7 @@ export default function Nav() {
         />
         <div className="flex flex-wrap gap-3 justify-center max-[500px]:w-full">
           <button
-            className="btn bg-transparent hover:bg-[#080808] w-full sm:w-auto flex items-center gap-5 normal-case"
+            className="btn rounded-md bg-transparent hover:bg-[#080808] w-full sm:w-auto flex items-center gap-5 normal-case"
             onClick={handleSortName}
           >
             Nombre{" "}
@@ -58,7 +58,7 @@ export default function Nav() {
             )}
           </button>
           <button
-            className="btn bg-transparent hover:bg-[#080808] w-full sm:w-auto flex items-center gap-5 normal-case"
+            className="btn rounded-md bg-transparent hover:bg-[#080808] w-full sm:w-auto flex items-center gap-5 normal-case"
             onClick={handleSortDate}
           >
             Fecha{" "}

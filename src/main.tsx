@@ -18,6 +18,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       onError: (error) => {
         if (error.response.status === 401) {
           window.localStorage.removeItem("user");
+          window.location.href = "/";
         }
       },
     }}
