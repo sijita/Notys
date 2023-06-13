@@ -4,7 +4,7 @@ import { axiosClient } from "../services/apiClient";
 import { useRecoilState } from "recoil";
 import { formDataState } from "../atoms/formDataState";
 import useCallResponse from "./useCallResponse";
-import { userDataState } from '../atoms/userDataState';
+import { userDataState } from "../atoms/userDataState";
 
 export default function useEntryForm() {
   const { callResponse, setCallResponse } = useCallResponse();
@@ -22,14 +22,19 @@ export default function useEntryForm() {
 
       if (registerForm) {
         if (!validation) {
-          setCallResponse(
-            "Tu contraseña debe tener al menos 1 mayuscula, 1 digito y 1 simbolo"
-          );
+          setCallResponse({
+            message:
+              "La contraseña debe tener al menos 3 caracteres, una mayúscula, una minúscula y un caracter especial",
+            error: true,
+          });
           return;
         } else {
           await axiosClient.post("auth/v1/signup", formData).then((res) => {
             setRegisterForm(false);
-            setCallResponse("Registro exitoso. Confirma tu email");
+            setCallResponse({
+              message: "Registro exitoso. Confirma tu email",
+              error: false,
+            });
           });
         }
       } else {
@@ -40,7 +45,10 @@ export default function useEntryForm() {
               userId: res.data.user.id,
               accessToken: res.data.access_token,
             });
-            setCallResponse("Cargando...");
+            setCallResponse({
+              message: "Cargando...",
+              error: false,
+            });
             navigate("/home", { replace: true });
           });
       }

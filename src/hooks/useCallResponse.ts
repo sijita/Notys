@@ -7,8 +7,8 @@ export default function useCallResponse() {
 
   useEffect(() => {
     setTimeout(() => {
-      setCallResponse("");
-    }, 3000);
+      setCallResponse({ message: "", error: false });
+    }, 5000);
   }, [callResponse]);
   return { callResponse, setCallResponse };
 }

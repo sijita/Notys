@@ -1,6 +1,14 @@
 import { atom } from "recoil";
 
-export const callsResponse = atom({
-    key: "callResponse",
-    default: "",
+interface CallResponse {
+  message: string;
+  error: boolean;
+}
+
+export const callsResponse = atom<CallResponse>({
+  key: "callResponse",
+  default: {
+    message: "",
+    error: false,
+  },
 });

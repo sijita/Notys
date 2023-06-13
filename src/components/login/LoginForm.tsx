@@ -76,17 +76,23 @@ export default function LoginForm() {
                 ? "hover:bg-transparent"
                 : "hover:bg-transparent bg-green-500"
             }`}
-            disabled={callResponse ? true : false}
+            disabled={callResponse.message ? true : false}
           >
-            {callResponse === "Cargando..."
-              ? callResponse
+            {callResponse.message === "Cargando..."
+              ? callResponse.message
               : !registerForm
               ? "Iniciar sesión"
               : "Registrarse"}
           </button>
         </div>
-        {callResponse !== "Cargando..." && (
-          <p className="my-3 text-red-500 text-center">{callResponse}</p>
+        {callResponse.message !== "Cargando..." && (
+          <p
+            className={`my-3 text-center ${
+              callResponse.error ? "text-red-500" : "text-green-500"
+            }`}
+          >
+            {callResponse.message}
+          </p>
         )}
       </form>
 
@@ -98,7 +104,6 @@ export default function LoginForm() {
           >
             Iniciar sesión
           </button>
-          <p className="my-3 text-red-500 text-center">{callResponse}</p>
         </>
       ) : (
         <p className="mt-6 text-sm text-center text-gray-400">
@@ -107,9 +112,8 @@ export default function LoginForm() {
             className="text-blue-500 focus:outline-none focus:underline hover:underline"
             onClick={() => setRegisterForm(true)}
           >
-            Registrate
+            Registrate.
           </button>
-          .
         </p>
       )}
     </>
