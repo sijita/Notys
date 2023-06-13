@@ -69,7 +69,7 @@ export default function NoteForm() {
           <button className="btn btn-success">Guardar</button>
         )}
         {callResponse && (
-          <p className="text-red-500 text-center">{callResponse}</p>
+          <p className="text-red-500 text-center">{callResponse.message}</p>
         )}
       </form>
     </div>
