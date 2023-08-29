@@ -15,11 +15,13 @@ export default function Login({ user }: any) {
         >
           <div className="flex items-center h-full px-20 bg-[#080808] bg-opacity-40">
             <div>
-              <h2 className="text-4xl font-bold text-white">¡Bienvenido/a a Notys!</h2>
+              <h2 className="text-4xl font-bold text-white">
+                ¡Bienvenido/a a Notys!
+              </h2>
 
               <p className="max-w-xl mt-3 text-gray-300 text-xl">
-                Página web especializada en la creación de notas, con la que podrás crear notas de forma
-                rápida y sencilla.
+                Página web especializada en la creación de notas, con la que
+                podrás crear notas de forma rápida y sencilla.
               </p>
             </div>
           </div>
@@ -27,12 +29,11 @@ export default function Login({ user }: any) {
 
         <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
           <div className="flex-1">
-            <div className="text-center">
+            <div className="flex flex-col gap-5 items-center">
               <h2 className="text-6xl font-bold text-center text-gray-700 dark:text-white">
                 Notys
               </h2>
-
-              <p className="mt-3 text-gray-500 dark:text-gray-300">
+              <p className="text-gray-500 dark:text-gray-300 text-lg">
                 Inicia sesión o registrate para ingresar.
               </p>
             </div>

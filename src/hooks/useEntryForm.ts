@@ -7,6 +7,7 @@ import { userDataState } from "../atoms/userDataState";
 import { toast } from "react-hot-toast";
 
 export default function useEntryForm() {
+  const [showPassword, setShowPassword] = useState<Boolean>(false);
   const [registerForm, setRegisterForm] = useState<Boolean>(false);
   const [formData, setFormData] = useRecoilState(formDataState);
   const [userData, setUserData] = useRecoilState(userDataState);
@@ -76,5 +77,7 @@ export default function useEntryForm() {
     setRegisterForm,
     formData,
     setFormData,
+    showPassword,
+    setShowPassword,
   };
 }

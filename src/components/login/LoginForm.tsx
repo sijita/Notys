@@ -1,10 +1,17 @@
-import { Link } from "react-router-dom";
 import useEntryForm from "../../hooks/useEntryForm";
 import Input from "../Input";
+import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 
 export default function LoginForm() {
-  const { auth, registerForm, setRegisterForm, formData, setFormData } =
-    useEntryForm();
+  const {
+    auth,
+    registerForm,
+    setRegisterForm,
+    formData,
+    setFormData,
+    showPassword,
+    setShowPassword,
+  } = useEntryForm();
 
   const handleFormData = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -21,10 +28,10 @@ export default function LoginForm() {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label className="block mb-2 text-sm font-semibold text-gray-600 dark:text-gray-200">
+    <div className="flex flex-col gap-6">
+      <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-2">
+          <label className="text-lg font-semibold text-gray-200">
             Correo electrónico
           </label>
           <Input
@@ -38,31 +45,33 @@ export default function LoginForm() {
           />
         </div>
 
-        <div className="mt-5">
-          <div className="flex justify-between mb-2">
-            <label className="text-sm font-semibold text-gray-600 dark:text-gray-200">
-              Contraseña
-            </label>
-            {!registerForm && (
-              <Link
-                to="/"
-                className="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline"
-              >
-                Olvidé mi contraseña
-              </Link>
-            )}
+        <div className="flex flex-col gap-2">
+          <label className="text-lg font-semibold text-gray-200">
+            Contraseña
+          </label>
+          <div className="relative">
+            <Input
+              name="password"
+              value={formData.password}
+              type={showPassword ? "text" : "password"}
+              placeholder="********"
+              onChange={handleFormData}
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-0 top-0 bottom-0 flex items-center px-3"
+            >
+              {showPassword ? (
+                <HiOutlineEye className="text-gray-500" />
+              ) : (
+                <HiOutlineEyeOff className="text-gray-500" />
+              )}
+            </button>
           </div>
-          <Input
-            name="password"
-            value={formData.password}
-            type="password"
-            placeholder="********"
-            onChange={handleFormData}
-            required
-          />
         </div>
-
-        <div className="mt-6">
+        <div className="mt-2">
           <button
             className={`w-full btn bg-blue-500 disabled:bg-blue-500 disabled:text-white ${
               !registerForm
@@ -74,7 +83,6 @@ export default function LoginForm() {
           </button>
         </div>
       </form>
-
       {registerForm ? (
         <>
           <button
@@ -85,16 +93,16 @@ export default function LoginForm() {
           </button>
         </>
       ) : (
-        <p className="mt-6 text-sm text-center text-gray-400">
-          No tienes cuenta?{" "}
+        <div className="text-base text-center text-gray-400 flex gap-2 w-full justify-center">
+          No tienes cuenta?
           <button
             className="text-blue-500 focus:outline-none focus:underline hover:underline"
             onClick={() => setRegisterForm(true)}
           >
             Registrate.
           </button>
-        </p>
+        </div>
       )}
-    </>
+    </div>
   );
 }
