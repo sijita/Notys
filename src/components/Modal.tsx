@@ -1,12 +1,10 @@
 import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalState";
-import { useNavigate } from "react-router-dom";
 import { notesState } from "../atoms/notesState";
 
 export default function Modal({ children }: React.PropsWithChildren) {
   const [modal, setModal] = useRecoilState(modalState);
   const [note, setNote] = useRecoilState(notesState);
-  const navigate = useNavigate();
 
   const handleModal = () => {
     setNote({
@@ -14,7 +12,6 @@ export default function Modal({ children }: React.PropsWithChildren) {
       content: "",
     });
     setModal({ visible: false, type: "" });
-    navigate("/home");
   };
 
   return (

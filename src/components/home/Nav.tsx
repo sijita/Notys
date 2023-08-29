@@ -36,45 +36,42 @@ export default function Nav() {
   };
 
   return (
-    <div className="navbar rounded-md bg-neutral-900/70 flex flex-wrap gap-5 p-10 sm:px-10 sm:py-4 max-[500px]:justify-center justify-between items-start md:items-center">
-      <div className="flex flex-col gap-5 md:flex-row md:gap-10 items-start max-[500px]:w-full">
-        <Input
-          name="searcher"
-          placeholder="Buscar..."
-          onChange={handleSearchNote}
-          type="text"
-          className="input-bordered rounded-md bg-black/30 sm:w-60"
-        />
-        <div className="flex flex-wrap gap-3 justify-center max-[500px]:w-full">
-          <button
-            className="btn rounded-md bg-transparent hover:bg-[#080808] w-full sm:w-auto flex items-center gap-5 normal-case"
-            onClick={handleSortName}
-          >
-            Nombre{" "}
-            {notesFilter === "&order=title.desc" ? (
-              <BiSortZA className="text-base" />
-            ) : (
-              <BiSortAZ className="text-base" />
-            )}
-          </button>
-          <button
-            className="btn rounded-md bg-transparent hover:bg-[#080808] w-full sm:w-auto flex items-center gap-5 normal-case"
-            onClick={handleSortDate}
-          >
-            Fecha{" "}
-            {notesFilter === "&order=created_at.desc" ? (
-              <BiSortUp className="text-base" />
-            ) : (
-              <BiSortDown className="text-base" />
-            )}
-          </button>
-        </div>
-      </div>
+    <div className="rounded-md bg-neutral-900/70 p-5 flex flex-col md:flex-row gap-5">
+      <Input
+        name="searcher"
+        placeholder="Buscar..."
+        onChange={handleSearchNote}
+        type="text"
+        className="input-bordered rounded-md bg-black/30 w-auto grow"
+      />
+      <button
+        className="btn rounded-md bg-transparent hover:bg-[#080808] flex items-center gap-5 normal-case"
+        onClick={handleSortName}
+      >
+        Nombre{" "}
+        {notesFilter === "&order=title.desc" ? (
+          <BiSortZA className="text-base" />
+        ) : (
+          <BiSortAZ className="text-base" />
+        )}
+      </button>
+      <button
+        className="btn rounded-md bg-transparent hover:bg-[#080808] flex items-center gap-5 normal-case"
+        onClick={handleSortDate}
+      >
+        Fecha{" "}
+        {notesFilter === "&order=created_at.desc" ? (
+          <BiSortUp className="text-base" />
+        ) : (
+          <BiSortDown className="text-base" />
+        )}
+      </button>
       <button
         onClick={handleModal}
-        className="btn btn-success btn-square text-2xl rounded-md max-[500px]:w-full"
+        className="btn btn-success rounded-md flex gap-3"
       >
-        <BsPlus />
+        Agregar Nota
+        <BsPlus size={20} />
       </button>
     </div>
   );

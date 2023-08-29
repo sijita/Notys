@@ -3,7 +3,6 @@ import NotesBody from "../components/home/NotesBody";
 import Modal from "../components/Modal";
 import NoteForm from "../components/home/NoteForm";
 import Dropdown from "../components/home/Dropdown";
-import { Toaster } from "react-hot-toast";
 import { BiFace, BiLogOutCircle } from "react-icons/bi";
 import { useNavigate, Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
@@ -23,7 +22,6 @@ export default function Home() {
 
   return (
     <div className="bg-[#080808] text-white min-h-screen">
-      <Toaster position="top-right" reverseOrder={false} />
       <div className="container mx-auto px-4 py-10 flex flex-col gap-5">
         <div className="flex justify-between items-center mb-10">
           <Link to="/" className="text-5xl font-bold">

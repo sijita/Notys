@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { axiosClient } from "../services/apiClient";
 import { useRecoilState } from "recoil";
 import { formDataState } from "../atoms/formDataState";
-import useCallResponse from "./useCallResponse";
 import { userDataState } from "../atoms/userDataState";
+import { toast } from "react-hot-toast";
 
 export default function useEntryForm() {
-  const { callResponse, setCallResponse } = useCallResponse();
   const [registerForm, setRegisterForm] = useState<Boolean>(false);
   const [formData, setFormData] = useRecoilState(formDataState);
   const [userData, setUserData] = useRecoilState(userDataState);
@@ -15,56 +14,64 @@ export default function useEntryForm() {
   let navigate = useNavigate();
 
   const auth = async () => {
+    let loadingToastId;
     try {
-      const regex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=.\-_*])([a-zA-Z0-9@#$%^&+=*.\-_]){3,}$/;
+      const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
       const validation = regex.test(formData.password);
 
       if (registerForm) {
         if (!validation) {
-          setCallResponse({
-            message:
-              "La contraseña debe tener al menos 3 caracteres, una mayúscula, una minúscula y un caracter especial",
-            error: true,
-          });
-          return;
+          return toast.error(
+            "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número"
+          );
         } else {
-          await axiosClient.post("auth/v1/signup", formData).then((res) => {
-            setRegisterForm(false);
-            setCallResponse({
-              message: "Registro exitoso. Confirma tu email",
-              error: false,
-            });
+          loadingToastId = toast.loading("Cargando...");
+          await axiosClient.post("auth/v1/signup", formData);
+
+          setRegisterForm(false);
+
+          setFormData({
+            email: "",
+            password: "",
           });
+
+          toast.dismiss(loadingToastId);
+
+          return toast.success(
+            "Por favor verifica tu correo electrónico para validar tu cuenta"
+          );
         }
       } else {
-        await axiosClient
-          .post("auth/v1/token?grant_type=password", formData)
-          .then((res) => {
-            setUserData({
-              userId: res.data.user.id,
-              accessToken: res.data.access_token,
-            });
-            setCallResponse({
-              message: "Cargando...",
-              error: false,
-            });
-            navigate("/home", { replace: true });
-          });
+        loadingToastId = toast.loading("Cargando...");
+        const res = await axiosClient.post(
+          "auth/v1/token?grant_type=password",
+          formData
+        );
+
+        setFormData({
+          email: "",
+          password: "",
+        });
+
+        setUserData({
+          userId: res.data.user.id,
+          accessToken: res.data.access_token,
+        });
+
+        toast.dismiss(loadingToastId);
+
+        toast.success("Bienvenido/a a Notys!");
+
+        return navigate("/home", { replace: true });
       }
     } catch (error: any) {
-      setCallResponse(error.response.data.error_description);
+      toast.dismiss(loadingToastId);
+      return toast.error(error.response.data.error_description);
     }
-
-    setFormData({
-      email: "",
-      password: "",
-    });
   };
 
   return {
     auth,
-    callResponse,
     registerForm,
     setRegisterForm,
     formData,

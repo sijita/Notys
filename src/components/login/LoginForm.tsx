@@ -3,14 +3,8 @@ import useEntryForm from "../../hooks/useEntryForm";
 import Input from "../Input";
 
 export default function LoginForm() {
-  const {
-    auth,
-    registerForm,
-    setRegisterForm,
-    callResponse,
-    formData,
-    setFormData,
-  } = useEntryForm();
+  const { auth, registerForm, setRegisterForm, formData, setFormData } =
+    useEntryForm();
 
   const handleFormData = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -21,9 +15,9 @@ export default function LoginForm() {
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    auth();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await auth();
   };
 
   return (
@@ -58,7 +52,6 @@ export default function LoginForm() {
               </Link>
             )}
           </div>
-
           <Input
             name="password"
             value={formData.password}
@@ -76,24 +69,10 @@ export default function LoginForm() {
                 ? "hover:bg-transparent"
                 : "hover:bg-transparent bg-green-500"
             }`}
-            disabled={callResponse.message ? true : false}
           >
-            {callResponse.message === "Cargando..."
-              ? callResponse.message
-              : !registerForm
-              ? "Iniciar sesión"
-              : "Registrarse"}
+            {!registerForm ? "Iniciar sesión" : "Registrarse"}
           </button>
         </div>
-        {callResponse.message !== "Cargando..." && (
-          <p
-            className={`my-3 text-center ${
-              callResponse.error ? "text-red-500" : "text-green-500"
-            }`}
-          >
-            {callResponse.message}
-          </p>
-        )}
       </form>
 
       {registerForm ? (
